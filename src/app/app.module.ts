@@ -6,13 +6,15 @@ import { CustomerDetailsComponent } from './customer-details/customer-details.co
 import { CustomerAddressComponent } from './customer-address/customer-address.component';
 import { FormsModule } from '@angular/forms';
 import { CustomerTableComponent } from './customer-table/customer-table.component';
+import { AntiIfDirective } from './anti-if.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     CustomerDetailsComponent,
     CustomerAddressComponent,
-    CustomerTableComponent
+    CustomerTableComponent,
+    AntiIfDirective
   ],
   imports: [
     BrowserModule,

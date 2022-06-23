@@ -1,15 +1,16 @@
 
 <div class="container">
-    <form #myForm="ngForm">
-    <h4>Exercise-1</h4><hr>
+    <form #myForm="ngForm" aut><!--autocomplete="off"-->
+    <h4>Exercise-1</h4>
+    <h2>Customer form</h2><hr>
     <label>Customer Name:</label><br>
-    <input type="text" class="form form-control" style="width: 400px;" placeholder="customer name here" [(ngModel)]="customerName" name="first" required><br>
+    <input id="inputFieldName" type="text" class="form form-control" style="width: 400px;" placeholder="customer name here" [(ngModel)]="customerName" name="first" required><br>
     <label>Customer Email:</label><br>
-    <input type="email" class="form form-control" style="width: 400px;" placeholder="customer email here" [(ngModel)]="customerEmail" name="second" required><br><br>
-    <app-customer-address >
-      <label>Customer Address:</label><br>
+    <input id="inputFieldEmail" type="email" pattern="[^ @]*@[^ @]*\.com"  class="form form-control" style="width: 400px;" placeholder="example@gmail.com" [(ngModel)]="customerEmail" name="second" required><br><br>
+    <app-customer-address (customerAddress)="getAddress($event)" [customerAddress2]="customerAddress" [isSubmitted3]="isSubmitted" >
+      <!-- <label>Customer Address:</label><br>
     <textarea class="form form-control" style="width: 400px;" name="third"
-    placeholder="customer address here" [(ngModel)]="customerAddress" required></textarea><br><br>
+    placeholder="customer address here" [(ngModel)]="customerAddress" required></textarea><br><br> -->
     </app-customer-address>
     <div class="input-group mb-3">
         <div class="input-group-prepend">
@@ -22,17 +23,22 @@
       </div><br>
     <p *ngIf="inputMissing" class="allInputReq">Please fill in all input fields above !</p>
 
-    <button class="btn btn-primary" (click)="onSubmit();customerName='';customerEmail='';customerAddress=''" [disabled]="!myForm.form.valid">Submit</button>
+    <button class="btn btn-primary" (click)="onSubmit();customerName='';customerEmail='';customerAddress=''" [disabled]="!myForm.form.valid || customerAddress==''">Submit</button>
     <!-- Extra -->
     <ul >
-      <li *ngFor="let cs of customerList"> {{ cs.name }} {{ cs.email }} {{ cs.address }} {{ cs.status }}</li>
+      <li *ngFor="let cs of customerList"> {{ cs.name }}  {{ cs.email }}  {{ cs.address }}  {{ cs.status }}</li>
     </ul>
     <!-- Extra -->
 </form>
 </div><br>
-<button class="btn btn-info" (click)="tableDisplay()">Show tabble</button>
+<button class="btn btn-info" (click)="tableDisplay()">Show table</button>
 <hr>
-<app-customer-table  *ngIf="showTable">
+<app-customer-table  *ngIf="showTable" [isSubmitted2]="isSubmitted" [customerList2]="customerList" 
+(customerName)="getEditedName($event)" (customerEmail)="getEditedEmail($event)" (customerAddress)="getEditedAddress($event)">
+
+  <!-- <span class="badge badge-success" style="cursor: pointer;" (click)="allActive()">Active</span>
+  <span class="badge bg-danger" style="margin-left: 20px; cursor: pointer;" (click)="allInactive()">Inactive</span><br><br>
+  <table class="storeTable table" id="myTable">
   <thead>    
     <tr>
             <th style="border: 2px solid;"><b style="cursor: pointer;" (click)="ascendingTableName()">Name</b></th>
@@ -42,16 +48,23 @@
             <th style="border: 2px solid;"><b>Edit details</b></th>
         </tr>
     </thead>
-    <tbody>
+  
+  <tbody>
   <h3 *ngIf="isSubmitted">No customers found</h3>
   <tr *ngFor="let el of customerList" >
     <td>{{ el.name }}</td>
     <td>{{ el.email }}</td>
     <td>{{ el.address }}</td>
-    <td [ngSwitch]="customerStatus">
-      <div *ngSwitchCase="Inactive"><span  class="badge badge-danger">Inactive</span></div>
-      <div *ngSwitchCase="Active"><span  class="badge badge-success">Active</span></div>
+    <td>
+      <div [ngSwitch]= "customerList.status">
+      <div *ngSwitchCase="Inactive"><span  class="badge badge-danger" [ngClass]="{'badge-success':customerList.status==Active}">
+        {{ el.status }}
+      </span>
+      </div>
+    </div>
     </td>
     <td><button class="btn btn-danger" >Edit</button></td>
-  </tr> </tbody>
+  </tr> 
+  </tbody>
+</table> -->
 </app-customer-table>
