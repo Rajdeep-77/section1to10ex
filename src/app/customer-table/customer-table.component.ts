@@ -1,10 +1,8 @@
-import { Component, EventEmitter, Injectable, Input, OnInit, Output } from '@angular/core';
+import { Component,  EventEmitter,  Injectable, Input, OnInit, Output } from '@angular/core';
 import { CustomerDetailsComponent } from '../customer-details/customer-details.component';
-import { AppService } from './appService';
 
 @Component({
   selector: 'app-customer-table',
-  template: `<p>{{title}}</p>`,
   templateUrl: './customer-table.component.html',
   styleUrls: ['./customer-table.component.css'],
   providers:[CustomerDetailsComponent]
@@ -13,52 +11,24 @@ import { AppService } from './appService';
 @Injectable()
 export class CustomerTableComponent implements OnInit {
 
-  title="Customer List"
-  @Input() isSubmitted2:boolean;
-  @Input() customerList2:Array<any>;
-
-  @Input() customerStatus2:string;
-
-  // @Output() customerName2 = new EventEmitter<string>();
-  // @Output() customerEmail2= new EventEmitter<string>();
-  // @Output() customerAddress2 = new EventEmitter<string>();
-  // editName:string;
-  // editEmail:string;
-  // editAddress:string;
-
-  tab=document.getElementById('myTable');
-  rIndex;
-  editThisRow(){
-    
-  }
   
+  @Input() isSubmittedChild:boolean;
+  @Input() customerListChild:Array<any>;
+  @Input() customerDetailArray:Array<any>;
+  @Input() customerStatusChild:string;
+  // row;
   constructor(){ }
   
   ngOnInit() {
   }
 
-  // these 3 functions edit the selected row by adding all values into form again
-  // editThisRowName(el: { name: string; }){
-  //   this.customerName2.emit(el.name);}
-
-  // editThisRowEmail(el: { email: string; }){
-  //   this.customerEmail2.emit(el.email);}
-
-  // editThisRowAddress(el: { address: string; }){
-  //   this.customerAddress2.emit(el.address);
-  // }
-
-  // editorFunction(){ 
-  //   this.customerName2.emit(this.editName); 
-  //   this.customerEmail2.emit(this.editEmail); 
-  //   this.customerAddress2.emit(this.editAddress); 
-  // }
-
    // this function sorts the table rows based on ascending order of name column
-   ascendingTableName(){
-    var table, rows, switching, i, x, y, shouldSwitch;
+    sortTable(n) {
+    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
     table = document.getElementById("myTable");
     switching = true;
+    //Set the sorting direction to ascending:
+    dir = "asc"; 
     /*Make a loop that will continue until
     no switching has been done:*/
     while (switching) {
@@ -72,13 +42,24 @@ export class CustomerTableComponent implements OnInit {
         shouldSwitch = false;
         /*Get the two elements you want to compare,
         one from current row and one from the next:*/
-        x = rows[i].getElementsByTagName("TD")[0];
-        y = rows[i + 1].getElementsByTagName("TD")[0];
-        //check if the two rows should switch place:
-        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-          //if so, mark as a switch and break the loop:
-          shouldSwitch = true;
-          break;
+        x = rows[i].getElementsByTagName("TD")[n];
+        y = rows[i + 1].getElementsByTagName("TD")[n];
+        /*check if the two rows should switch place,
+        based on the direction, asc or desc:*/
+        if (dir == "asc") {
+          
+          if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+            //if so, mark as a switch and break the loop:
+            shouldSwitch= true;
+            break;
+          }
+        } else if (dir == "desc") {
+    
+          if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+            //if so, mark as a switch and break the loop:
+            shouldSwitch = true;
+            break;
+          }
         }
       }
       if (shouldSwitch) {
@@ -86,19 +67,41 @@ export class CustomerTableComponent implements OnInit {
         and mark that a switch has been done:*/
         rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
         switching = true;
+        //Each time a switch is done, increase this count by 1:
+        switchcount ++;      
+      } else {
+        /*If no switching has been done AND the direction is "asc",
+        set the direction to "desc" and run the while loop again.*/
+        if (switchcount == 0 && dir == "asc") {
+          dir = "desc";
+          switching = true;
+        }
       }
     }
   }
 
+  // this function shows all rows with status= Active as well as status= Inactive
+  showAll(){
+    this.customerListChild=this.customerDetailArray ;
+  }
+  
   // this function shows rows with status= Active
   justActive(){ 
-    this.customerList2.filter( obj => { return obj.status =='Active'; } );
-   }
+    this.customerListChild=this.customerDetailArray.filter( obj => { return obj.status == 'Active'; } ) ;  
+  }
 
    // this function shows rows with status= Inactive
   justInactive(){
-    this.customerList2.filter( obj => { return obj.status=='Inactive' } );
+    this.customerListChild=this.customerDetailArray.filter( obj => { return obj.status == 'Inactive'; } );
   }
 
-  
+  // This function fills the form again with the data of selected row
+  onEdit(elem){
+    (<HTMLInputElement>document.getElementById('inputFieldName')).value=elem.name;
+    (<HTMLInputElement>document.getElementById('inputFieldEmail')).value=elem.email;
+    (<HTMLInputElement>document.getElementById('inputFieldAddress')).value=elem.address;
+    (<HTMLInputElement>document.getElementById('inputFieldStatus')).value=elem.status;
+  }
+ 
+
 }

@@ -6,7 +6,10 @@ import { CustomerDetailsComponent } from './customer-details/customer-details.co
 import { CustomerAddressComponent } from './customer-address/customer-address.component';
 import { FormsModule } from '@angular/forms';
 import { CustomerTableComponent } from './customer-table/customer-table.component';
+import { TitleCustomerListComponent } from './title-customer-list/title-customer-list.component';
 import { AntiIfDirective } from './anti-if.directive';
+import { Task3Component } from './task3/task3.component';
+import { HoverDirectiveDirective } from './hover-directive.directive';
 
 @NgModule({
   declarations: [
@@ -14,7 +17,10 @@ import { AntiIfDirective } from './anti-if.directive';
     CustomerDetailsComponent,
     CustomerAddressComponent,
     CustomerTableComponent,
-    AntiIfDirective
+    TitleCustomerListComponent,
+    AntiIfDirective,
+    Task3Component,
+    HoverDirectiveDirective
   ],
   imports: [
     BrowserModule,

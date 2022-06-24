@@ -11,17 +11,12 @@ export class CustomerAddressComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  @Input() isSubmitted3:boolean;
+  @Input() isSubmittedInaddress:boolean;
   @Output() customerAddress = new EventEmitter<string>();
-  @Input() customerAddress2:string;
+  @Input() customerAddressChild:string;
 
-  // emptyAddr(){
-  //   if(this.isSubmitted3==true){
-  //     this.customerAddress2=='';
-  //   }
-  // }
   
   //this function sends address to parent component
- sendAddress(){ this.customerAddress.emit(this.customerAddress2) }
+ sendAddress(){ this.customerAddress.emit(this.customerAddressChild) }
   
 }

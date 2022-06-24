@@ -1,13 +1,13 @@
 
 <div class="container">
-    <form #myForm="ngForm" aut><!--autocomplete="off"-->
+    <form #myForm="ngForm" onsubmit="event.preventDefault();onFormSubmit();"><!--autocomplete="off"-->
     <h4>Exercise-1</h4>
     <h2>Customer form</h2><hr>
     <label>Customer Name:</label><br>
     <input id="inputFieldName" type="text" class="form form-control" style="width: 400px;" placeholder="customer name here" [(ngModel)]="customerName" name="first" required><br>
     <label>Customer Email:</label><br>
     <input id="inputFieldEmail" type="email" pattern="[^ @]*@[^ @]*\.com"  class="form form-control" style="width: 400px;" placeholder="example@gmail.com" [(ngModel)]="customerEmail" name="second" required><br><br>
-    <app-customer-address (customerAddress)="getAddress($event)" [customerAddress2]="customerAddress" [isSubmitted3]="isSubmitted" >
+    <app-customer-address (customerAddress)="getAddress($event)" [customerAddressChild]="customerAddress" [isSubmittedInaddress]="isSubmitted" >
       <!-- <label>Customer Address:</label><br>
     <textarea class="form form-control" style="width: 400px;" name="third"
     placeholder="customer address here" [(ngModel)]="customerAddress" required></textarea><br><br> -->
@@ -16,7 +16,7 @@
         <div class="input-group-prepend">
           <label class="input-group-text" for="inputGroupSelect01">Status:</label>
         </div>
-        <select class="custom-select" id="inputGroupSelect01" (change)="onStatusSelected(status.value)" #status required>
+        <select class="custom-select" id="inputFieldStatus" (change)="onStatusSelected(status.value)" #status required>
           <option selected value="Inactive">Inactive</option>
           <option value="Active">Active</option>
         </select>
@@ -33,38 +33,10 @@
 </div><br>
 <button class="btn btn-info" (click)="tableDisplay()">Show table</button>
 <hr>
-<app-customer-table  *ngIf="showTable" [isSubmitted2]="isSubmitted" [customerList2]="customerList" 
-(customerName)="getEditedName($event)" (customerEmail)="getEditedEmail($event)" (customerAddress)="getEditedAddress($event)">
+<!-- <p *antiIf="showTable">Hello there</p> -->
+<app-customer-table  *ngIf="showTable" [isSubmittedChild]="isSubmitted" [customerListChild]="customerList" [customerDetailArray]="customerList" [customerNameChild]="customerName"
+(customerName2)="getEditedName($event)" (customerEmail2)="getEditedEmail($event)" (customerAddress2)="getEditedAddress($event)">
 
-  <!-- <span class="badge badge-success" style="cursor: pointer;" (click)="allActive()">Active</span>
-  <span class="badge bg-danger" style="margin-left: 20px; cursor: pointer;" (click)="allInactive()">Inactive</span><br><br>
-  <table class="storeTable table" id="myTable">
-  <thead>    
-    <tr>
-            <th style="border: 2px solid;"><b style="cursor: pointer;" (click)="ascendingTableName()">Name</b></th>
-            <th style="border: 2px solid;"><b>Email</b></th>
-            <th style="border: 2px solid;"><b>Address</b></th>
-            <th style="border: 2px solid;"><b>Status</b></th>
-            <th style="border: 2px solid;"><b>Edit details</b></th>
-        </tr>
-    </thead>
-  
-  <tbody>
-  <h3 *ngIf="isSubmitted">No customers found</h3>
-  <tr *ngFor="let el of customerList" >
-    <td>{{ el.name }}</td>
-    <td>{{ el.email }}</td>
-    <td>{{ el.address }}</td>
-    <td>
-      <div [ngSwitch]= "customerList.status">
-      <div *ngSwitchCase="Inactive"><span  class="badge badge-danger" [ngClass]="{'badge-success':customerList.status==Active}">
-        {{ el.status }}
-      </span>
-      </div>
-    </div>
-    </td>
-    <td><button class="btn btn-danger" >Edit</button></td>
-  </tr> 
-  </tbody>
-</table> -->
+ 
 </app-customer-table>
+<app-task3></app-task3>
