@@ -17,6 +17,10 @@ export class CustomerTableComponent implements OnInit {
   customerDetailArray:Array<any>;
   title:string="Customer List";
   @Output() nameOfObjectToBeEdit =  new EventEmitter<string>();
+  tempVarDir:string;
+  showUp:boolean=true;
+  showDown:boolean=true;
+  ObjToBeEdit:string;
   // @Input() customerDetailArray:Array<any>;
   // @Input() customerStatusChild:string;
   // row;
@@ -26,11 +30,11 @@ export class CustomerTableComponent implements OnInit {
     this.customerDetailArray=this.customerListChild ;
     
   }
+
+  // This function sends the edited name to form component
   sendObjToBeEdited(){ this.nameOfObjectToBeEdit.emit(this.ObjToBeEdit)}
 
-  tempVarDir:string;
-  showUp:boolean=true;
-  showDown:boolean=true;
+  
    // this function sorts the table rows based on ascending order of name column
     sortTable(n) {
     var  rows, switching, tempVarX, tempVarY, shouldSwitch:boolean, switchcount:number = 0;
@@ -107,7 +111,7 @@ export class CustomerTableComponent implements OnInit {
     }
   }
 
-  ObjToBeEdit:string;
+  
   // This function fills the form again with the data of selected row
   onEdit(elem){
     (<HTMLInputElement>document.getElementById('inputFieldName')).value=elem.name;

@@ -30,7 +30,7 @@
             </div><br>
             <p *ngIf="inputMissing" class="allInputReq">Please select status !</p>
 
-            <button id="submitBtn" class="btn btn-primary" (mouseover)="gettingStatus()" (click)="onSubmit();customerName='';customerEmail='';customerAddress=''" [disabled]="!myForm.form.valid || customerAddress==''">Submit</button>
+            <button id="submitBtn" class="btn btn-primary"  (click)="onSubmit();customerName='';customerEmail='';customerAddress=''" [disabled]="!myForm.form.valid || customerAddress==''">Submit</button>
             <br><br>
             <button id="editBtn" class="btn btn-danger editBtn"  (click)="onEditForm();customerName='';customerEmail='';customerAddress=''" >Edit Data</button>
             <!-- Extra -->

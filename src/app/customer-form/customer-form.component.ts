@@ -25,14 +25,14 @@ export class CustomerFormComponent implements OnInit{
 
   customerStatus:any='';
   
-  gettingStatus(){
-     if ((<HTMLInputElement>document.getElementById('statusActive')).checked) {
-      this.customerStatus = (<HTMLInputElement>document.getElementById('statusActive')).value;
-    }
-    if ((<HTMLInputElement>document.getElementById('statusInactive')).checked) {
-      this.customerStatus = (<HTMLInputElement>document.getElementById('statusInactive')).value;
-    }
-  }
+  // gettingStatus(){
+  //    if ((<HTMLInputElement>document.getElementById('statusActive')).checked) {
+  //     this.customerStatus = (<HTMLInputElement>document.getElementById('statusActive')).value;
+  //   }
+  //   if ((<HTMLInputElement>document.getElementById('statusInactive')).checked) {
+  //     this.customerStatus = (<HTMLInputElement>document.getElementById('statusInactive')).value;
+  //   }
+  // }
 
   // gettingStatus(){
   //   if ((<HTMLInputElement>document.getElementById('statusActive')).checked) {
@@ -88,6 +88,7 @@ export class CustomerFormComponent implements OnInit{
     // }
   }
 
+  // this function gets name property of object to be editted
   getEditName(event: string) {  this.newToEdit = event; }
 
   //this function edits the details filled inside customer form
