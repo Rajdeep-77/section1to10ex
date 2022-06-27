@@ -6,24 +6,25 @@ import { ActivationEnd } from '@angular/router';
   selector: 'app-customer-details',
   templateUrl: './customer-details.component.html',
   styleUrls: ['./customer-details.component.css']
- 
+
 })
 export class CustomerDetailsComponent implements OnInit{
 
   constructor() { }
   ngOnInit() {
-    
+
   }
-  
+
 
   // exercise-1 variables___________________________________________
-  
+
   customerName:string;
   customerEmail:string;
   customerAddress:string;
-    
+
   customerStatus:string="Inactive";
-  
+  // customerStatus:string=(<HTMLInputElement>document.querySelector('input[name="status"]:checked')).value;
+
   customerDetails:{ name:string, email:string, address:string, status:string } ={
     name: '',
     email: '',
@@ -34,8 +35,8 @@ export class CustomerDetailsComponent implements OnInit{
   isSubmitted:boolean=true;
   inputMissing=true;
   showTable:boolean=false;
-  
-   
+
+
 
   // exercise-1 functions___________________________________________
 
@@ -43,8 +44,8 @@ export class CustomerDetailsComponent implements OnInit{
   getAddress(event: string) {  this.customerAddress = event; }
 
   //this function sets the value of customer status
-  onStatusSelected(value:string) { 
-    this.customerStatus = value; 
+  onStatusSelected(value:string) {
+    this.customerStatus = value;
   };
 
   //this function submits the details filled inside customer form
@@ -102,19 +103,19 @@ export class CustomerDetailsComponent implements OnInit{
   // }
 
   //this functions catches name, email and address
-  // getEditedName(event: string) {  
+  // getEditedName(event: string) {
   //   this.customerName = event;
-  //   // document.getElementById('inputFieldName').innerHTML=event; 
+  //   // document.getElementById('inputFieldName').innerHTML=event;
   // };
-  // getEditedEmail(event: string) {  
-  //   this.customerEmail = event;  
-  //   // document.getElementById('inputFieldEmail').innerHTML=event; 
+  // getEditedEmail(event: string) {
+  //   this.customerEmail = event;
+  //   // document.getElementById('inputFieldEmail').innerHTML=event;
   // };
-  // getEditedAddress(event: string) {  
-  //   this.customerAddress = event;  
+  // getEditedAddress(event: string) {
+  //   this.customerAddress = event;
   // };
 
-}  
+}
 
 
 

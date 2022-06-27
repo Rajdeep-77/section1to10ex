@@ -1,34 +1,35 @@
-
-<app-title-customer-list></app-title-customer-list>
+<app-title-customer-list>
+</app-title-customer-list>
 <div>
-        
-  <span class="badge" style="cursor: pointer;" (click)="showAll()">All data</span>
-  <span class="badge badge-success" style="margin-left: 20px; cursor: pointer;" (click)="justActive()">Active</span>
-  <span class="badge badge-danger" style="margin-left: 20px; cursor: pointer;" (click)="justInactive()">Inactive</span><br><br>
 
-  <table class="storeTable table" id="myTable">
-  <thead>    
-    <tr>
-            <th style="border: 2px solid;"><b style="cursor: pointer;" (click)="sortTable(0)">Name</b></th>
-            <th style="border: 2px solid;"><b>Email</b></th>
-            <th style="border: 2px solid;"><b>Address</b></th>
-            <th style="border: 2px solid;"><b>Status</b></th>
-            <th style="border: 2px solid;"><b>Edit details</b></th>
-        </tr>
-    </thead>
-  
-  <tbody>
-  <h3 *ngIf="isSubmittedChild">No customers found</h3>
-  <tr *ngFor="let el of customerListChild" >
-    <td>{{ el.name }}</td>
-    <td>{{ el.email }}</td>
-    <td>{{ el.address }}</td>
-    <td data-status="{{ el.status }}">
-        <span class="badge badge-danger" *ngIf="el.status=='Inactive'" id="activated">{{ el.status }}</span>
-        <span class="badge badge-success" *ngIf="el.status=='Active'" id="inactivated">{{ el.status }}</span>
-    </td>
-    <td><button id="editButton" class="btn btn-danger" (click)="onEdit(this.el)">Edit</button></td>
-  </tr> 
-  </tbody>
-</table>
+    <span class="badge badge-info" (click)="showAll()">All data</span>
+    <span class="badge badge-success" (click)="justActive()">Active</span>
+    <span class="badge badge-danger" (click)="justInactive()">Inactive</span><br><br>
+    <div class="table-responsive">
+        <table class="storeTable table" id="myTable">
+            <thead>
+                <tr>
+                    <th><b class="tableHeader" (click)="sortTable(0)">Name</b></th>
+                    <th><b class="tableHeader" (click)="sortTable(1)">Email</b></th>
+                    <th><b class="tableHeader" (click)="sortTable(2)">Address</b></th>
+                    <th><b class="tableHeader" (click)="sortTable(3)">Status</b></th>
+                    <th><b>Edit details</b></th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <h3 *ngIf="isSubmittedChild" class="emptyTableLine">No customers found</h3>
+                <tr *ngFor="let el of customerListChild">
+                    <td>{{ el.name }}</td>
+                    <td>{{ el.email }}</td>
+                    <td class=".th-lg">{{ el.address }}</td>
+                    <td data-status="{{ el.status }}">
+                        <span class="badge badge-danger" *ngIf="el.status=='Inactive'" id="activated">{{ el.status }}</span>
+                        <span class="badge badge-success" *ngIf="el.status=='Active'" id="inactivated">{{ el.status }}</span>
+                    </td>
+                    <td><button id="editButton" class="btn btn-danger" (click)="onEdit(this.el)">Edit</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

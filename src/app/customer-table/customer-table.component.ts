@@ -11,24 +11,24 @@ import { CustomerDetailsComponent } from '../customer-details/customer-details.c
 @Injectable()
 export class CustomerTableComponent implements OnInit {
 
-  
+
   @Input() isSubmittedChild:boolean;
-  @Input() customerListChild:Array<any>;
-  @Input() customerDetailArray:Array<any>;
+  @Input() customerListChild:Array<any> ;customerDetailArray:Array<any>;
+  // @Input() customerDetailArray:Array<any>;
   @Input() customerStatusChild:string;
   // row;
   constructor(){ }
-  
+
   ngOnInit() {
   }
 
    // this function sorts the table rows based on ascending order of name column
     sortTable(n) {
-    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    var table, rows, switching, i, tempVarX, tempVarY, shouldSwitch, tempVarDir, switchcount = 0;
     table = document.getElementById("myTable");
     switching = true;
     //Set the sorting direction to ascending:
-    dir = "asc"; 
+    tempVarDir = "asc";
     /*Make a loop that will continue until
     no switching has been done:*/
     while (switching) {
@@ -42,20 +42,20 @@ export class CustomerTableComponent implements OnInit {
         shouldSwitch = false;
         /*Get the two elements you want to compare,
         one from current row and one from the next:*/
-        x = rows[i].getElementsByTagName("TD")[n];
-        y = rows[i + 1].getElementsByTagName("TD")[n];
+        tempVarX = rows[i].getElementsByTagName("TD")[n];
+        tempVarY = rows[i + 1].getElementsByTagName("TD")[n];
         /*check if the two rows should switch place,
         based on the direction, asc or desc:*/
-        if (dir == "asc") {
-          
-          if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+        if (tempVarDir == "asc") {
+
+          if (tempVarX.innerHTML.toLowerCase() > tempVarY.innerHTML.toLowerCase()) {
             //if so, mark as a switch and break the loop:
             shouldSwitch= true;
             break;
           }
-        } else if (dir == "desc") {
-    
-          if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+        } else if (tempVarDir == "desc") {
+
+          if (tempVarX.innerHTML.toLowerCase() < tempVarY.innerHTML.toLowerCase()) {
             //if so, mark as a switch and break the loop:
             shouldSwitch = true;
             break;
@@ -68,12 +68,12 @@ export class CustomerTableComponent implements OnInit {
         rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
         switching = true;
         //Each time a switch is done, increase this count by 1:
-        switchcount ++;      
+        switchcount ++;
       } else {
         /*If no switching has been done AND the direction is "asc",
         set the direction to "desc" and run the while loop again.*/
-        if (switchcount == 0 && dir == "asc") {
-          dir = "desc";
+        if (switchcount == 0 && tempVarDir == "asc") {
+          tempVarDir = "desc";
           switching = true;
         }
       }
@@ -84,10 +84,10 @@ export class CustomerTableComponent implements OnInit {
   showAll(){
     this.customerListChild=this.customerDetailArray ;
   }
-  
+
   // this function shows rows with status= Active
-  justActive(){ 
-    this.customerListChild=this.customerDetailArray.filter( obj => { return obj.status == 'Active'; } ) ;  
+  justActive(){
+    this.customerListChild=this.customerDetailArray.filter( obj => { return obj.status == 'Active'; } ) ;
   }
 
    // this function shows rows with status= Inactive
@@ -102,6 +102,6 @@ export class CustomerTableComponent implements OnInit {
     (<HTMLInputElement>document.getElementById('inputFieldAddress')).value=elem.address;
     (<HTMLInputElement>document.getElementById('inputFieldStatus')).value=elem.status;
   }
- 
+
 
 }

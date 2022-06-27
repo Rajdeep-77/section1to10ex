@@ -1,4 +1,3 @@
 <label>Customer Address:</label><br>
-<textarea id="inputFieldAddress" class="form form-control" style="width: 400px;" name="third"
-placeholder="customer address here" [(ngModel)]="customerAddressChild"  (keyup)="sendAddress()" required></textarea><br><br>
+<textarea id="inputFieldAddress" class="form form-control formControl" pattern="[A-Za-z0-9]+" name="third" placeholder="customer address here" [(ngModel)]="customerAddressChild" (keyup)="sendAddress()" required></textarea><br><br>
 <ng-content></ng-content>

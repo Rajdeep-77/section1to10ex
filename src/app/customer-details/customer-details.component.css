@@ -1,3 +1,11 @@
-.allInputReq{
+.allInputReq {
     color: red;
+}
+
+.formControl {
+    width: 400px;
+}
+
+.radioBtn {
+    margin-left: 15px;
 }
