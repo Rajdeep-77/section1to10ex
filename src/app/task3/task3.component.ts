@@ -12,15 +12,10 @@ export class Task3Component implements OnInit,OnChanges {
     throw new Error('Method not implemented.');
   }
  
-  radioBtnValue;
+  radioBtnValue:string;
   ngOnInit(){
   }
 
-  onSelectedBtnChanges(vL){
-    this.radioBtnValue=vL;
-    console.log(this.radioBtnValue)
-
-  }
- 
+  
 
 }

@@ -8,10 +8,11 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class CustomerAddressComponent implements OnInit {
 
   constructor() { }
-  ngOnInit(): void {
+  ngOnInit(){
+    this.sendAddress();
   }
 
-  @Input() isSubmittedInaddress:boolean;
+  // @Input() isSubmittedInaddress:boolean;
   @Output() customerAddress = new EventEmitter<string>();
   @Input() customerAddressChild:string;
 

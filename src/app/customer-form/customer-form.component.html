@@ -1,0 +1,59 @@
+<div class="container row">
+    <div class="col-md-5">
+        <form #myForm="ngForm" onsubmit="event.preventDefault();">
+
+            <h4>Exercise-1</h4>
+            <h2>Customer form</h2>
+            <hr>
+            <label>Customer Name:</label><br>
+            <input id="inputFieldName" pattern="[A-Za-z0-9]+" type="text" class="form form-control formControl" placeholder="customer name here" [(ngModel)]="customerName" name="first" required><br>
+            <p id="nameInputError" style="display: none;"> Please enter valid input name !</p>
+            <label>Customer Email:</label><br>
+            <input id="inputFieldEmail" type="email" pattern="[A-Za-z0-9]+[^ @]*@[^ @]*\.[A-Za-z0-9]+" class="form form-control formControl" placeholder="example@gmail.com" [(ngModel)]="customerEmail" name="second" required><br><br>
+            <app-customer-address (customerAddress)="getAddress($event)" [customerAddressChild]="customerAddress" >
+                <!-- the address field component will be here  -->
+            </app-customer-address>
+            <div class="input-group mb-3">
+                <!-- <div class="input-group-prepend">
+                    <label class="input-group-text" for="inputGroupSelect01">Status:</label>
+                </div>
+            <select class="custom-select" id="inputFieldStatus" (change)="onStatusSelected(status.value)" #status required>
+                <option selected value="Inactive">Inactive</option>
+                <option value="Active">Active</option>
+            </select> -->
+                <div id="inputFieldStatus">
+                    <label>Status:</label>
+                <input id="statusActive" type="radio" value="Active" name="status" class="radioBtn" required="required">Active
+                <input id="statusInactive" type="radio" value="Inactive" name="status" class="radioBtn" >Inactive
+                </div>
+
+            </div><br>
+            <p *ngIf="inputMissing" class="allInputReq">Please select status !</p>
+
+            <button id="submitBtn" class="btn btn-primary" (mouseover)="gettingStatus()" (click)="onSubmit();customerName='';customerEmail='';customerAddress=''" [disabled]="!myForm.form.valid || customerAddress==''">Submit</button>
+            <br><br>
+            <button id="editBtn" class="btn btn-danger editBtn"  (click)="onEditForm();customerName='';customerEmail='';customerAddress=''" >Edit Data</button>
+            <!-- Extra -->
+            <!-- <ul>
+                <li *ngFor="let cs of customerList"> {{ cs.name }} {{ cs.email }} {{ cs.address }} {{ cs.status }}</li>
+            </ul> -->
+            <!-- Extra -->
+        </form><br><br>
+        <button class="btn btn-info" (click)="showTable=!showTable">Show table</button>
+        <hr>
+    </div>
+    <div class="col-md-7">
+        <!-- <p *antiIf="showTable">Hello there</p> -->
+        <app-customer-table *ngIf="showTable" 
+        [isSubmittedChild]="isSubmitted" [customerListChild]="customerList" 
+        [customerDetailArray]="customerList" [customerNameChild]="customerName" 
+        (customerName2)="getEditedName($event)" (customerEmail2)="getEditedEmail($event)"
+        (customerAddress2)="getEditedAddress($event)" (newToEdit)="getEditName($event)">
+
+
+        </app-customer-table>
+    </div>
+</div><br>
+
+
+<app-task3></app-task3>

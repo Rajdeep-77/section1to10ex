@@ -1,11 +1,11 @@
 import { Component,  EventEmitter,  Injectable, Input, OnInit, Output } from '@angular/core';
-import { CustomerDetailsComponent } from '../customer-details/customer-details.component';
+import { CustomerFormComponent } from '../customer-form/customer-form.component';
 
 @Component({
   selector: 'app-customer-table',
   templateUrl: './customer-table.component.html',
   styleUrls: ['./customer-table.component.css'],
-  providers:[CustomerDetailsComponent]
+  providers:[CustomerFormComponent]
 })
 
 @Injectable()
@@ -13,31 +13,39 @@ export class CustomerTableComponent implements OnInit {
 
 
   @Input() isSubmittedChild:boolean;
-  @Input() customerListChild:Array<any> ;customerDetailArray:Array<any>;
+  @Input() customerListChild:Array<any> ;
+  customerDetailArray:Array<any>;
+  title:string="Customer List";
+  @Output() nameOfObjectToBeEdit =  new EventEmitter<string>();
   // @Input() customerDetailArray:Array<any>;
-  @Input() customerStatusChild:string;
+  // @Input() customerStatusChild:string;
   // row;
   constructor(){ }
 
   ngOnInit() {
+    this.customerDetailArray=this.customerListChild ;
+    
   }
+  sendObjToBeEdited(){ this.nameOfObjectToBeEdit.emit(this.ObjToBeEdit)}
 
+  tempVarDir:string;
+  showUp:boolean=true;
+  showDown:boolean=true;
    // this function sorts the table rows based on ascending order of name column
     sortTable(n) {
-    var table, rows, switching, i, tempVarX, tempVarY, shouldSwitch, tempVarDir, switchcount = 0;
-    table = document.getElementById("myTable");
+    var  rows, switching, tempVarX, tempVarY, shouldSwitch:boolean, switchcount:number = 0;
     switching = true;
     //Set the sorting direction to ascending:
-    tempVarDir = "asc";
+    this.tempVarDir = "asc";
     /*Make a loop that will continue until
     no switching has been done:*/
     while (switching) {
       //start by saying: no switching is done:
       switching = false;
-      rows = table.rows;
+      rows = (<HTMLTableElement>document.getElementById("myTable")).rows;
       /*Loop through all table rows (except the
       first, which contains table headers):*/
-      for (i = 1; i < (rows.length - 1); i++) {
+      for (var i = 1; i < (rows.length - 1); i++) {
         //start by saying there should be no switching:
         shouldSwitch = false;
         /*Get the two elements you want to compare,
@@ -46,17 +54,21 @@ export class CustomerTableComponent implements OnInit {
         tempVarY = rows[i + 1].getElementsByTagName("TD")[n];
         /*check if the two rows should switch place,
         based on the direction, asc or desc:*/
-        if (tempVarDir == "asc") {
+        if (this.tempVarDir == "asc") {
 
           if (tempVarX.innerHTML.toLowerCase() > tempVarY.innerHTML.toLowerCase()) {
             //if so, mark as a switch and break the loop:
+            this.showUp=false;
+            this.showDown=true;
             shouldSwitch= true;
             break;
           }
-        } else if (tempVarDir == "desc") {
+        } else if (this.tempVarDir == "desc") {
 
           if (tempVarX.innerHTML.toLowerCase() < tempVarY.innerHTML.toLowerCase()) {
             //if so, mark as a switch and break the loop:
+            this.showUp=true;
+            this.showDown=false;
             shouldSwitch = true;
             break;
           }
@@ -72,35 +84,40 @@ export class CustomerTableComponent implements OnInit {
       } else {
         /*If no switching has been done AND the direction is "asc",
         set the direction to "desc" and run the while loop again.*/
-        if (switchcount == 0 && tempVarDir == "asc") {
-          tempVarDir = "desc";
+        if (switchcount == 0 && this.tempVarDir == "asc") {
+          this.tempVarDir = "desc";
           switching = true;
         }
       }
     }
   }
 
-  // this function shows all rows with status= Active as well as status= Inactive
-  showAll(){
-    this.customerListChild=this.customerDetailArray ;
+  // this function shows all rows with status= Active and/or status= Inactive
+  showJust(val: string){
+    // this.customerDetailArray=this.customerListChild ;
+    if(val=='all'){
+      this.customerListChild=this.customerDetailArray ;
+    }
+    else if(val=='active'){
+      this.customerListChild=this.customerDetailArray.filter( obj => { return obj.status == 'Active'; } ) ;
+    }else if(val=='inactive'){
+      this.customerListChild=this.customerDetailArray.filter( obj => { return obj.status == 'Inactive'; } );
+    }else{
+      this.customerListChild =this.customerDetailArray;
+    }
   }
 
-  // this function shows rows with status= Active
-  justActive(){
-    this.customerListChild=this.customerDetailArray.filter( obj => { return obj.status == 'Active'; } ) ;
-  }
-
-   // this function shows rows with status= Inactive
-  justInactive(){
-    this.customerListChild=this.customerDetailArray.filter( obj => { return obj.status == 'Inactive'; } );
-  }
-
+  ObjToBeEdit:string;
   // This function fills the form again with the data of selected row
   onEdit(elem){
     (<HTMLInputElement>document.getElementById('inputFieldName')).value=elem.name;
+    this.ObjToBeEdit=elem.name;
     (<HTMLInputElement>document.getElementById('inputFieldEmail')).value=elem.email;
     (<HTMLInputElement>document.getElementById('inputFieldAddress')).value=elem.address;
     (<HTMLInputElement>document.getElementById('inputFieldStatus')).value=elem.status;
+    (<HTMLInputElement>document.getElementById('editBtn')).style.display='block';
+    (<HTMLInputElement>document.getElementById('submitBtn')).style.display='hidden';
+    this.sendObjToBeEdited();
   }
 
 

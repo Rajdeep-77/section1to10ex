@@ -1,6 +1,9 @@
 <h4>Task-3</h4>
 <p class="hoverOverMe" appHoverDirective [textCLR]="radioBtnValue">task3 works!</p>
-<input type="radio" name="hoverColor" value="green" (change)="onSelectedBtnChanges($event.target.value)" > Green<br><br>
-<input type="radio" name="hoverColor" value="yellow" (change)="onSelectedBtnChanges($event.target.value)"> Yellow<br><br>
-<input type="radio" name="hoverColor" value="red" (change)="onSelectedBtnChanges($event.target.value)"> Red<br><br><hr>
+<div>
+<input type="radio" name="hoverColor" value="green" (change)="radioBtnValue=$event.target.value" > Green<br><br>
+<input type="radio" name="hoverColor" value="yellow" (change)="radioBtnValue=$event.target.value"> Yellow<br><br>
+<input type="radio" name="hoverColor" value="red" (change)="radioBtnValue=$event.target.value"> Red<br><br><hr>
+</div>
+
 <div ></div>

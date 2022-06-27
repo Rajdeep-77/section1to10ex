@@ -17,8 +17,22 @@
 
 .tableHeader {
     cursor: pointer;
+    width: 150px;
+}
+.addressHeader{
+    width: 150px;
+}
+.emptyTableLine {
+    margin-left: 150px;
+    /* size: ; */
 }
 
-.emptyTableLine {
-    margin-left: 200px;
+.box{
+    max-width: 300px !important;
+    inline-size: 28px !important; 
+    /* overflow-wrap: break-word !important;  use this if you want to show full address but in multiple lines */
+    overflow: hidden;
 }
+.field-br {
+    word-break: break-all; 
+  }

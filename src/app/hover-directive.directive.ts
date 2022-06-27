@@ -10,15 +10,15 @@ export class HoverDirectiveDirective {
   @Input() textCLR;
     @HostListener('mouseover') whenMouseOverP(){
       
-      if(this.textCLR=='red'){
-        this.elRef.nativeElement.style.color="red";
-      }
-      if(this.textCLR=='green'){
-        this.elRef.nativeElement.style.color="green";
-      }
-      if(this.textCLR=='yellow'){
-        this.elRef.nativeElement.style.color="yellow";
-      }
+      // if(this.textCLR=='red'){
+        this.elRef.nativeElement.style.color=this.textCLR;
+    //   }
+    //   if(this.textCLR=='green'){
+    //     this.elRef.nativeElement.style.color="green";
+    //   }
+    //   if(this.textCLR=='yellow'){
+    //     this.elRef.nativeElement.style.color="yellow";
+    //   }
     }
   
     @HostListener('mouseleave') whenMouseLeaveP(){
