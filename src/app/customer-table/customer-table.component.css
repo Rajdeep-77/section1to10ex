@@ -17,22 +17,42 @@
 
 .tableHeader {
     cursor: pointer;
-    width: 150px;
+    width: 250px;
 }
-.addressHeader{
-    width: 150px;
-}
+/* .addressHeader{
+    width: 140px;
+} */
 .emptyTableLine {
-    margin-left: 150px;
-    /* size: ; */
+    margin-left: 250px;
+    width: max-content;
+    font-size: larger;
+    position: absolute;
+    /* margin: auto; */
 }
 
 .box{
-    max-width: 300px !important;
+    /* max-width: 300px !important;
     inline-size: 28px !important; 
-    /* overflow-wrap: break-word !important;  use this if you want to show full address but in multiple lines */
-    overflow: hidden;
+    overflow-y: auto; */
+    /* overflow-wrap: break-word !important;   */
+    /* use this if you want to show full address but in multiple lines */
+    max-width: 80px; /* tweak me please */
+    white-space : nowrap;
+    overflow : hidden;
+    text-overflow: ellipsis;
+}
+.box:hover{
+    
+    /* height: 200px; */
+    inline-size: 28px;
+    text-overflow: unset;
+    /* width:300px; */
+    overflow-y: auto;
+    overflow-wrap: break-word !important; 
 }
 .field-br {
     word-break: break-all; 
   }
+th{
+    width: 180px;
+}

@@ -1,3 +1,6 @@
 .formControl {
-    width: 400px;
+    width: 350px;
+}
+.allInputReq {
+    color: red;
 }

@@ -3,7 +3,7 @@
 }
 
 .formControl {
-    width: 400px;
+    width: 350px;
 }
 
 .radioBtn {
@@ -14,3 +14,6 @@
     margin-left: 25px;
     display: none;
 }
+/* .tableDataColumn{
+    margin-left: 2%;
+} */

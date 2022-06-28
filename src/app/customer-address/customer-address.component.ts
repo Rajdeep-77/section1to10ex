@@ -15,9 +15,21 @@ export class CustomerAddressComponent implements OnInit {
   // @Input() isSubmittedInaddress:boolean;
   @Output() customerAddress = new EventEmitter<string>();
   @Input() customerAddressChild:string;
-
+  addressMissing:boolean=false;
   
   //this function sends address to parent component
- sendAddress(){ this.customerAddress.emit(this.customerAddressChild) }
-  
+ sendAddress(){ 
+  this.customerAddress.emit(this.customerAddressChild);
+  }
+
+  //this function checks the address validity
+ checkAddress(){
+  if(this.customerAddressChild!='[A-Za-z0-9]+'){
+    this.addressMissing=true;
+  }
+  else
+  {
+    this.addressMissing=false;
+  }
+  }
 }

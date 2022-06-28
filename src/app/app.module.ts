@@ -6,7 +6,6 @@ import { CustomerFormComponent } from './customer-form/customer-form.component';
 import { CustomerAddressComponent } from './customer-address/customer-address.component';
 import { FormsModule } from '@angular/forms';
 import { CustomerTableComponent } from './customer-table/customer-table.component';
-import { TitleCustomerListComponent } from './title-customer-list/title-customer-list.component';
 import { AntiIfDirective } from './anti-if.directive';
 import { Task3Component } from './task3/task3.component';
 import { HoverDirectiveDirective } from './hover-directive.directive';
@@ -17,7 +16,6 @@ import { HoverDirectiveDirective } from './hover-directive.directive';
     CustomerFormComponent,
     CustomerAddressComponent,
     CustomerTableComponent,
-    TitleCustomerListComponent,
     AntiIfDirective,
     Task3Component,
     HoverDirectiveDirective

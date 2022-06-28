@@ -16,27 +16,40 @@ export class CustomerTableComponent implements OnInit {
   @Input() customerListChild:Array<any> ;
   customerDetailArray:Array<any>;
   title:string="Customer List";
-  @Output() nameOfObjectToBeEdit =  new EventEmitter<string>();
+  @Output() nameOfObjectToBeEdit =  new EventEmitter<object>();
   tempVarDir:string;
-  showUp:boolean=true;
-  showDown:boolean=true;
-  ObjToBeEdit:string;
-  // @Input() customerDetailArray:Array<any>;
-  // @Input() customerStatusChild:string;
-  // row;
+  ObjToBeEdit;
+
+  arrayOfSym:Array<boolean>=[true,false,true,false,true,false,true,false];
   constructor(){ }
 
   ngOnInit() {
     this.customerDetailArray=this.customerListChild ;
-    
   }
 
   // This function sends the edited name to form component
-  sendObjToBeEdited(){ this.nameOfObjectToBeEdit.emit(this.ObjToBeEdit)}
+  // sendObjToBeEdited(){ this.nameOfObjectToBeEdit.emit(this.ObjToBeEdit)}
 
   
    // this function sorts the table rows based on ascending order of name column
     sortTable(n) {
+      if(n==0){
+        this.arrayOfSym[0]=!this.arrayOfSym[0];
+        this.arrayOfSym[1]=!this.arrayOfSym[1];
+      }
+      else  if(n==1){
+        this.arrayOfSym[2]=!this.arrayOfSym[2];
+        this.arrayOfSym[3]=!this.arrayOfSym[3];
+      }
+      else  if(n==2){
+        this.arrayOfSym[4]=!this.arrayOfSym[4];
+        this.arrayOfSym[5]=!this.arrayOfSym[5];
+      }
+      else  if(n==3){
+        this.arrayOfSym[6]=!this.arrayOfSym[6];
+        this.arrayOfSym[7]=!this.arrayOfSym[7];
+      }
+
     var  rows, switching, tempVarX, tempVarY, shouldSwitch:boolean, switchcount:number = 0;
     switching = true;
     //Set the sorting direction to ascending:
@@ -62,8 +75,6 @@ export class CustomerTableComponent implements OnInit {
 
           if (tempVarX.innerHTML.toLowerCase() > tempVarY.innerHTML.toLowerCase()) {
             //if so, mark as a switch and break the loop:
-            this.showUp=false;
-            this.showDown=true;
             shouldSwitch= true;
             break;
           }
@@ -71,8 +82,6 @@ export class CustomerTableComponent implements OnInit {
 
           if (tempVarX.innerHTML.toLowerCase() < tempVarY.innerHTML.toLowerCase()) {
             //if so, mark as a switch and break the loop:
-            this.showUp=true;
-            this.showDown=false;
             shouldSwitch = true;
             break;
           }
@@ -112,16 +121,26 @@ export class CustomerTableComponent implements OnInit {
   }
 
   
-  // This function fills the form again with the data of selected row
-  onEdit(elem){
-    (<HTMLInputElement>document.getElementById('inputFieldName')).value=elem.name;
-    this.ObjToBeEdit=elem.name;
-    (<HTMLInputElement>document.getElementById('inputFieldEmail')).value=elem.email;
-    (<HTMLInputElement>document.getElementById('inputFieldAddress')).value=elem.address;
-    (<HTMLInputElement>document.getElementById('inputFieldStatus')).value=elem.status;
-    (<HTMLInputElement>document.getElementById('editBtn')).style.display='block';
-    (<HTMLInputElement>document.getElementById('submitBtn')).style.display='hidden';
-    this.sendObjToBeEdited();
+  
+  // This function sends the edited name to form component
+  onEdit(elem: object){
+    // (<HTMLInputElement>document.getElementById('inputFieldName')).value=elem.name;
+    // this.ObjToBeEdit=elem.id;
+    // (<HTMLInputElement>document.getElementById('inputFieldEmail')).value=elem.email;
+    // (<HTMLInputElement>document.getElementById('inputFieldAddress')).value=elem.address;
+    // // (<HTMLInputElement>document.getElementById('inputFieldStatus')).value=elem.status;
+    // if(elem.status=='Active'){
+    //   (<HTMLInputElement>document.querySelector('input[id="statusActive"]:checked'));
+    // }else{
+    //   (<HTMLInputElement>document.querySelector('input[id="statusInactive"]:checked'));
+    // }
+    // (<HTMLInputElement>document.getElementById('editBtn')).style.display='block';
+    // (<HTMLInputElement>document.getElementById('submitBtn')).style.display='hidden';
+    // this.sendObjToBeEdited();
+    this.nameOfObjectToBeEdit.emit(elem);
+    (<HTMLInputElement>document.getElementById('submitBtn')).innerHTML="Edit";
+    (<HTMLInputElement>document.getElementById('submitBtn')).style.backgroundColor="maroon";
+    
   }
 
 
