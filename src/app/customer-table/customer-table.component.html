@@ -1,12 +1,7 @@
-<!-- <app-title-customer-list>
-</app-title-customer-list> -->
-<!-- <h2>{{ title }}</h2> -->
+
 <ng-content></ng-content>
 <div>
 
-    <!-- <span class="badge badge-info" (click)="showAll()">All data</span>
-    <span class="badge badge-success" (click)="justActive()">Active</span>
-    <span class="badge badge-danger" (click)="justInactive()">Inactive</span><br><br> -->
      <div class="input-group-prepend">
                     <label>Show by:</label>
                 </div>
@@ -63,7 +58,7 @@
                     
                     <td>{{ el.name }}</td>
                     <td>{{ el.email }}</td>
-                    <td class="box field">{{ el.address }}</td>
+                    <td><div id="{{ el.id }}" class="  box field" (click)="toggleAddressClass(this.el.id)">{{ el.address }}</div></td>
                     <td data-status="{{ el.status }}">
                         <span class="badge badge-danger" *ngIf="el.status=='Inactive'" id="activated">{{ el.status }}</span>
                         <span class="badge badge-success" *ngIf="el.status=='Active'" id="inactivated">{{ el.status }}</span>
@@ -72,5 +67,4 @@
                 </tr>
             </tbody>
         </table>
-    <!-- </div> -->
 </div>

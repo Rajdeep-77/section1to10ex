@@ -18,7 +18,7 @@ export class CustomerTableComponent implements OnInit {
   title:string="Customer List";
   @Output() nameOfObjectToBeEdit =  new EventEmitter<object>();
   tempVarDir:string;
-  ObjToBeEdit;
+  // ObjToBeEdit;
 
   arrayOfSym:Array<boolean>=[true,false,true,false,true,false,true,false];
   constructor(){ }
@@ -26,10 +26,6 @@ export class CustomerTableComponent implements OnInit {
   ngOnInit() {
     this.customerDetailArray=this.customerListChild ;
   }
-
-  // This function sends the edited name to form component
-  // sendObjToBeEdited(){ this.nameOfObjectToBeEdit.emit(this.ObjToBeEdit)}
-
   
    // this function sorts the table rows based on ascending order of name column
     sortTable(n) {
@@ -107,7 +103,6 @@ export class CustomerTableComponent implements OnInit {
 
   // this function shows all rows with status= Active and/or status= Inactive
   showJust(val: string){
-    // this.customerDetailArray=this.customerListChild ;
     if(val=='all'){
       this.customerListChild=this.customerDetailArray ;
     }
@@ -123,25 +118,13 @@ export class CustomerTableComponent implements OnInit {
   
   
   // This function sends the edited name to form component
-  onEdit(elem: object){
-    // (<HTMLInputElement>document.getElementById('inputFieldName')).value=elem.name;
-    // this.ObjToBeEdit=elem.id;
-    // (<HTMLInputElement>document.getElementById('inputFieldEmail')).value=elem.email;
-    // (<HTMLInputElement>document.getElementById('inputFieldAddress')).value=elem.address;
-    // // (<HTMLInputElement>document.getElementById('inputFieldStatus')).value=elem.status;
-    // if(elem.status=='Active'){
-    //   (<HTMLInputElement>document.querySelector('input[id="statusActive"]:checked'));
-    // }else{
-    //   (<HTMLInputElement>document.querySelector('input[id="statusInactive"]:checked'));
-    // }
-    // (<HTMLInputElement>document.getElementById('editBtn')).style.display='block';
-    // (<HTMLInputElement>document.getElementById('submitBtn')).style.display='hidden';
-    // this.sendObjToBeEdited();
+  onEdit(elem){
     this.nameOfObjectToBeEdit.emit(elem);
     (<HTMLInputElement>document.getElementById('submitBtn')).innerHTML="Edit";
-    (<HTMLInputElement>document.getElementById('submitBtn')).style.backgroundColor="maroon";
-    
   }
 
-
+  //This function toggles the applied class of address div
+  toggleAddressClass(vl){
+    (<HTMLInputElement>document.getElementById(vl)).classList.toggle('displayFullAddress');
+  }
 }

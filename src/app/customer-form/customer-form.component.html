@@ -8,24 +8,24 @@
 
             <label>Customer Name:</label><br>
             <input id="inputFieldName" pattern="[A-Za-z0-9]+" type="text" class="form form-control formControl" placeholder="customer name here" [(ngModel)]="customerName" name="first" required><br>
-            <p id="nameInputError" style="display: none;"> Please enter valid input name !</p>
             
             <label>Customer Email:</label><br>
             <input id="inputFieldEmail" type="email" pattern="[A-Za-z0-9]+[^ @]*@[^ @]*\.[A-Za-z0-9]+" class="form form-control formControl" placeholder="example@gmail.com" [(ngModel)]="customerEmail" name="second" required><br><br>
             
             <app-customer-address (customerAddress)="getAddress($event)" [customerAddressChild]="customerAddress" > </app-customer-address>
             <p *ngIf="addressMissing" class="allInputReq">Please enter address !</p>
+            
             <div class="input-group mb-3">
                 <div id="inputFieldStatus">
                 <label>Status:</label>
-                <input id="statusActive" type="radio" value="Active" name="status" class="radioBtn" required="required">Active
-                <input id="statusInactive" type="radio" value="Inactive" name="status" class="radioBtn" >Inactive
+                <input id="Active" type="radio" value="Active" name="status" class="radioBtn" required="required">Active
+                <input id="Inactive" type="radio" value="Inactive" name="status" class="radioBtn" >Inactive
                 </div>
 
             </div><br>
             <p *ngIf="inputMissing" class="allInputReq">Please select status !</p>
 
-            <button id="submitBtn" class="btn btn-primary"  (click)="onSubmit()" [disabled]="!myForm.form.valid || customerAddress=='' ">Submit</button>
+            <button id="submitBtn" class="btn btn-primary"  (click)="onSubmit()" [disabled]="!myForm.form.valid || customerAddress=='' || !customerAddress.match('^[^-\s][a-zA-z0-9_]+$') ">Submit</button>
             <br><br>
             <!-- Extra -->
             <ul>
@@ -39,13 +39,12 @@
 
     </div>
 <div class="col-md-8">
-        <!-- <p *antiIf="showTable">Hello there</p> -->
+        
         <app-customer-table *ngIf="showTable" 
         [isSubmittedChild]="isSubmitted" [customerListChild]="customerList" 
         [customerDetailArray]="customerList" [customerNameChild]="customerName" 
-        (nameOfObjectToBeEdit)="getEditName($event)">
+        (nameOfObjectToBeEdit)="getEditId($event)">
         <h2>Customer List</h2>
-
         </app-customer-table>
     </div>
 </div><br>

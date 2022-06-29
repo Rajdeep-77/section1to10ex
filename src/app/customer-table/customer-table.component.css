@@ -31,24 +31,42 @@
 }
 
 .box{
-    /* max-width: 300px !important;
-    inline-size: 28px !important; 
-    overflow-y: auto; */
-    /* overflow-wrap: break-word !important;   */
-    /* use this if you want to show full address but in multiple lines */
-    max-width: 80px; /* tweak me please */
-    white-space : nowrap;
-    overflow : hidden;
+    /* inline-size: 28px !important;
+    width: 28px;
+    text-overflow: ellipsis !important;
+    overflow: hidden; */
+    overflow: hidden !important;
+    max-width: 180px !important; /* tweak me please */
     text-overflow: ellipsis;
-}
-.box:hover{
+    white-space : nowrap;
+    /* overflow-wrap: break-word;  */
+    /* max-width: 60px !important; */
+    /* overflow-y: auto; */
+    /* use this if you want to show full address but in multiple lines */
+    /* display: inline; */
+    /* white-space : nowrap; */
+    /* position: relative; */
+  /* display: block; */
     
-    /* height: 200px; */
+    
+    
+}
+.displayFullAddress{
+    /* overflow-wrap: break-word !important; 
+    max-width: 30px; /* tweak me please */
+    /* cursor: pointer;
+    display: inline;
     inline-size: 28px;
     text-overflow: unset;
-    /* width:300px; */
-    overflow-y: auto;
-    overflow-wrap: break-word !important; 
+    width:50px !important;
+    overflow-y: auto;  */
+    white-space: unset;
+    max-width: 200px !important;
+    display: block;
+    height: auto ;
+    text-overflow: unset;
+    inline-size: 200px !important;
+    overflow-wrap: break-word !important;
 }
 .field-br {
     word-break: break-all; 
