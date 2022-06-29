@@ -89,7 +89,7 @@ export class CustomerFormComponent implements OnInit, OnChanges{
         this.inputMissing=false;
         // const replaceObject=this.customerList.filter(obj => {return obj.id==this.newId;});
         
-        this.newObject= { id:this.newId, name:this.customerName, email:this.customerEmail, address:this.customerAddress, status:(<HTMLInputElement>document.querySelector('input[name="status"]:checked')).value};
+        this.newObject= { id:(this.customerList.length-1), name:this.customerName, email:this.customerEmail, address:this.customerAddress, status:(<HTMLInputElement>document.querySelector('input[name="status"]:checked')).value};
         
         this.customerList[this.newId-1]=this.newObject;
         this.customerList.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));

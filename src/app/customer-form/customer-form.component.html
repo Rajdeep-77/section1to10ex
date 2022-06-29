@@ -28,9 +28,9 @@
             <button id="submitBtn" class="btn btn-primary"  (click)="onSubmit()" [disabled]="!myForm.form.valid || customerAddress=='' || !customerAddress.match('^[^-\s][a-zA-z0-9_]+$') ">Submit</button>
             <br><br>
             <!-- Extra -->
-            <ul>
+            <!-- <ul>
                 <li *ngFor="let cs of customerList">{{ cs.id }} {{ cs.name }} {{ cs.email }} {{ cs.address }} {{ cs.status }}</li>
-            </ul>
+            </ul> -->
             <!-- Extra -->
         </form><br><br>
 
