@@ -15,7 +15,6 @@ export class CustomerTableComponent implements OnInit {
   @Input() isSubmittedChild:boolean;
   @Input() customerListChild:Array<any> ;
   customerDetailArray:Array<any>;
-  title:string="Customer List";
   @Output() nameOfObjectToBeEdit =  new EventEmitter<object>();
   tempVarDir:string;
   // ObjToBeEdit;
@@ -103,22 +102,23 @@ export class CustomerTableComponent implements OnInit {
 
   // this function shows all rows with status= Active and/or status= Inactive
   showJust(val: string){
-    if(val=='all'){
-      this.customerListChild=this.customerDetailArray ;
-    }
-    else if(val=='active'){
-      this.customerListChild=this.customerDetailArray.filter( obj => { return obj.status == 'Active'; } ) ;
-    }else if(val=='inactive'){
-      this.customerListChild=this.customerDetailArray.filter( obj => { return obj.status == 'Inactive'; } );
-    }else{
-      this.customerListChild =this.customerDetailArray;
-    }
+    val === 'all' ? this.customerListChild=this.customerDetailArray : ( val=='active' ? this.customerListChild=this.customerDetailArray.filter( obj => { return obj.status == 'Active'; } ): this.customerListChild=this.customerDetailArray.filter( obj => { return obj.status == 'Inactive'; } ) );
+    // if(val=='all'){
+    //   this.customerListChild=this.customerDetailArray ;
+    // }
+    // else if(val=='active'){
+    //   this.customerListChild=this.customerDetailArray.filter( obj => { return obj.status == 'Active'; } ) ;
+    // }else if(val=='inactive'){
+    //   this.customerListChild=this.customerDetailArray.filter( obj => { return obj.status == 'Inactive'; } );
+    // }else{
+    //   this.customerListChild =this.customerDetailArray;
+    // }
   }
 
   
   
   // This function sends the edited name to form component
-  onEdit(elem){
+  onEdit(elem:object){
     this.nameOfObjectToBeEdit.emit(elem);
     (<HTMLInputElement>document.getElementById('submitBtn')).innerHTML="Edit";
   }

@@ -1,6 +1,4 @@
-import { Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import {FormGroup} from '@angular/forms';
-import { ActivationEnd } from '@angular/router';
+import { Component, OnChanges, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-customer-form',
@@ -24,31 +22,38 @@ export class CustomerFormComponent implements OnInit, OnChanges{
   customerAddress:string='';
   customerList:Array<any>=[];
 
+  emailArray=[];
   isSubmitted:boolean=true;
-  inputMissing=false;
-  addressMissing=false;
+  inputMissing:boolean=false;
+  emailExist:boolean=false;
+  addressMissing:boolean=false;
   showTable:boolean=false;
 
-  newObject:object;
-  newId:number
+  editedObject:object;
+  objIndex:number;
 
 
   // exercise-1 functions___________________________________________
 
+  checkEmail(){
+    if(this.emailArray.includes(this.checkEmail)==true){this.emailExist=true;}
+    else{this.emailExist=false;}
+  }
+
   //this function gets address from child component
   getAddress(event: string)
   {  
-    // this.checkAddress()
     this.customerAddress = event; 
   }
 
   //this function gets the object to be edited
-  getEditId(event){
-    this.newId=event.id;
-   this.customerName=event.name;
-   this.customerEmail=event.email;
-   this.customerAddress=event.address;
-    (<HTMLInputElement>document.getElementById(event.status)).checked=true;
+  getEditobj(eventObj){
+  
+    this.objIndex=this.customerList.findIndex(ob => ob.name ==eventObj.name);
+   this.customerName=eventObj.name;
+   this.customerEmail=eventObj.email;
+   this.customerAddress=eventObj.address;
+    (<HTMLInputElement>document.getElementById(eventObj.status)).checked=true;
 
   }
 
@@ -61,14 +66,12 @@ export class CustomerFormComponent implements OnInit, OnChanges{
           this.inputMissing=false;
           this.isSubmitted=false;
           this.addressMissing=false;
+          this.emailArray.push(this.customerEmail);
           this.customerList.push({id:(this.customerList.length+1), name:this.customerName, email:this.customerEmail, address:this.customerAddress, status:(<HTMLInputElement>document.querySelector('input[name="status"]:checked')).value});
           this.customerList.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
           this.customerName='';
           this.customerEmail='';
           this.customerAddress='';
-              // (<HTMLInputElement>document.getElementById('inputFieldName')).value='';
-              // (<HTMLInputElement>document.getElementById('inputFieldEmail')).value='';
-              // (<HTMLInputElement>document.getElementById('inputFieldAddress')).value='';
               (<HTMLInputElement>document.querySelector('input[type=radio][name=status]:checked')).checked = false;
         }
         else if( !(<HTMLInputElement>document.querySelector('input[name="status"]:checked')))
@@ -81,30 +84,26 @@ export class CustomerFormComponent implements OnInit, OnChanges{
         }
     }
     else {//when edit Mode is ON
-      if(!(<HTMLInputElement>document.querySelector('input[name="status"]:checked'))){
+      if(!(<HTMLInputElement>document.querySelector('input[name="status"]:checked')))
+      {
         this.inputMissing=true;
       }
       else
       {
         this.inputMissing=false;
-        // const replaceObject=this.customerList.filter(obj => {return obj.id==this.newId;});
         
-        this.newObject= { id:(this.customerList.length-1), name:this.customerName, email:this.customerEmail, address:this.customerAddress, status:(<HTMLInputElement>document.querySelector('input[name="status"]:checked')).value};
-        
-        this.customerList[this.newId-1]=this.newObject;
+        this.editedObject= { id:(this.customerList.length-1), name:this.customerName, email:this.customerEmail, address:this.customerAddress, status:(<HTMLInputElement>document.querySelector('input[name="status"]:checked')).value };
+        this.customerList[this.objIndex]=this.editedObject;
+
         this.customerList.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
 
         this.customerName='';
         this.customerAddress='';
         this.customerEmail='';
-          // (<HTMLInputElement>document.getElementById('inputFieldName')).value='';
-          // (<HTMLInputElement>document.getElementById('inputFieldEmail')).value='';
-          // (<HTMLInputElement>document.getElementById('inputFieldAddress')).value='';
+         
           (<HTMLInputElement>document.querySelector('input[type=radio][name=status]:checked')).checked = false;
           (<HTMLInputElement>document.getElementById('submitBtn')).innerHTML="Submit";
 
-          // console.log("()))))"+ JSON.stringify(this.newObject));
-          // console.log("--__--"+ JSON.stringify(replaceObject));
         }
       }
 
@@ -112,9 +111,8 @@ export class CustomerFormComponent implements OnInit, OnChanges{
 
   }
 
- //this function checks the address validity
+  //this function checks the address validity
   checkAddress(){
-    // console.log("hii")
     if(this.customerAddress!='[A-Za-z0-9]+'){
       this.addressMissing=true;
     }

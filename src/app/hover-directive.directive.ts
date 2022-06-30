@@ -1,12 +1,12 @@
-import { Directive, ElementRef, HostListener, Input, Renderer2 } from '@angular/core';
-import { Task3Component } from './task3/task3.component';
+import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+
 
 @Directive({
   selector: '[appHoverDirective]'
 })
 export class HoverDirectiveDirective {
 
-  constructor(private elRef:ElementRef, private renderer:Renderer2, selectedRadio:Task3Component) { }
+  constructor(private elRef:ElementRef,) { }
   @Input() textCLR;
     @HostListener('mouseover') whenMouseOverP(){
       

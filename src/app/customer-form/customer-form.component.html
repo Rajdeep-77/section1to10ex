@@ -7,11 +7,12 @@
             <hr>
 
             <label>Customer Name:</label><br>
-            <input id="inputFieldName" pattern="[A-Za-z0-9]+" type="text" class="form form-control formControl" placeholder="customer name here" [(ngModel)]="customerName" name="first" required><br>
+            <input id="inputFieldName" type="text" class="form form-control formControl" placeholder="customer name here" [(ngModel)]="customerName" name="first" required><br>
             
             <label>Customer Email:</label><br>
-            <input id="inputFieldEmail" type="email" pattern="[A-Za-z0-9]+[^ @]*@[^ @]*\.[A-Za-z0-9]+" class="form form-control formControl" placeholder="example@gmail.com" [(ngModel)]="customerEmail" name="second" required><br><br>
-            
+            <input id="inputFieldEmail" type="email" pattern="[A-Za-z0-9]+[^ @]*@[^ @]*\.[A-Za-z0-9]+" class="form form-control formControl" (mouseout)="checkEmail()" placeholder="example@gmail.com" [(ngModel)]="customerEmail" name="second" required><br><br>
+            <p *ngIf="emailExist" class="allInputReq ">Email already exist !</p>
+
             <app-customer-address (customerAddress)="getAddress($event)" [customerAddressChild]="customerAddress" > </app-customer-address>
             <p *ngIf="addressMissing" class="allInputReq">Please enter address !</p>
             
@@ -25,7 +26,7 @@
             </div><br>
             <p *ngIf="inputMissing" class="allInputReq">Please select status !</p>
 
-            <button id="submitBtn" class="btn btn-primary"  (click)="onSubmit()" [disabled]="!myForm.form.valid || customerAddress=='' || !customerAddress.match('^[^-\s][a-zA-z0-9_]+$') ">Submit</button>
+            <button id="submitBtn" class="btn btn-primary"  (click)="onSubmit()" [disabled]="!myForm.form.valid || customerName.trim()=='' || customerAddress.trim()==''">Submit</button>
             <br><br>
             <!-- Extra -->
             <!-- <ul>
@@ -43,7 +44,7 @@
         <app-customer-table *ngIf="showTable" 
         [isSubmittedChild]="isSubmitted" [customerListChild]="customerList" 
         [customerDetailArray]="customerList" [customerNameChild]="customerName" 
-        (nameOfObjectToBeEdit)="getEditId($event)">
+        (nameOfObjectToBeEdit)="getEditobj($event)">
         <h2>Customer List</h2>
         </app-customer-table>
     </div>
