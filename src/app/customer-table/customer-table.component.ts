@@ -21,7 +21,7 @@ export class CustomerTableComponent implements OnInit {
   @Input() customerListChild:Array<any> ;
   customerDetailArray:Array<any>;
   @Output() nameOfObjectToBeEdit =  new EventEmitter<object>();
-  setObject
+  // setObject
   //This function returns an object to edit
   // getObjToEdit(){
   //   return this.nameOfObjectToBeEdit;
