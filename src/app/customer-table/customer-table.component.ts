@@ -11,20 +11,26 @@ import { CustomerFormComponent } from '../customer-form/customer-form.component'
 @Injectable()
 export class CustomerTableComponent implements OnInit {
 
+  constructor( ){ }
+
+  ngOnInit() {
+    this.customerDetailArray=this.customerListChild ;
+  }
 
   @Input() isSubmittedChild:boolean;
   @Input() customerListChild:Array<any> ;
   customerDetailArray:Array<any>;
   @Output() nameOfObjectToBeEdit =  new EventEmitter<object>();
+  setObject
+  //This function returns an object to edit
+  // getObjToEdit(){
+  //   return this.nameOfObjectToBeEdit;
+  // }
   tempVarDir:string;
   // ObjToBeEdit;
 
   arrayOfSym:Array<boolean>=[true,false,true,false,true,false,true,false];
-  constructor(){ }
-
-  ngOnInit() {
-    this.customerDetailArray=this.customerListChild ;
-  }
+ 
   
    // this function sorts the table rows based on ascending order of name column
     sortTable(n) {
@@ -121,6 +127,7 @@ export class CustomerTableComponent implements OnInit {
   onEdit(elem:object){
     this.nameOfObjectToBeEdit.emit(elem);
     (<HTMLInputElement>document.getElementById('submitBtn')).innerHTML="Edit";
+    (<HTMLInputElement>document.getElementById('inputFieldEmail')).disabled=true;
   }
 
   //This function toggles the applied class of address div

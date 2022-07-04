@@ -28,15 +28,16 @@ export class CustomerFormComponent implements OnInit, OnChanges{
   emailExist:boolean=false;
   addressMissing:boolean=false;
   showTable:boolean=false;
-
+  editMode:boolean=false;
   editedObject:object;
   objIndex:number;
 
 
   // exercise-1 functions___________________________________________
 
-  checkEmail(){
-    if(this.emailArray.includes(this.checkEmail)==true){this.emailExist=true;}
+  // This function checks if the entered email already exist or not
+  checkEmail(emailInput: string){
+    if(this.emailArray.includes(emailInput)==true){this.emailExist=true;}
     else{this.emailExist=false;}
   }
 
@@ -49,7 +50,7 @@ export class CustomerFormComponent implements OnInit, OnChanges{
   //this function gets the object to be edited
   getEditobj(eventObj){
   
-    this.objIndex=this.customerList.findIndex(ob => ob.name ==eventObj.name);
+    this.objIndex=this.customerList.findIndex(ob => ob.email == eventObj.email);
    this.customerName=eventObj.name;
    this.customerEmail=eventObj.email;
    this.customerAddress=eventObj.address;
@@ -59,8 +60,9 @@ export class CustomerFormComponent implements OnInit, OnChanges{
 
   //this function submits/edits the details filled inside customer form
   onSubmit(){
+    (<HTMLInputElement>document.getElementById('inputFieldEmail')).disabled=false;
     if(document.getElementById('submitBtn').innerHTML!="Edit") //when edit mode is OFF
-    {
+    { this.editMode=false;
         if(this.customerName!='' && this.customerEmail!='' && this.customerAddress!='' && (<HTMLInputElement>document.querySelector('input[name="status"]:checked')))
         {
           this.inputMissing=false;
@@ -78,12 +80,11 @@ export class CustomerFormComponent implements OnInit, OnChanges{
         {
               this.inputMissing=true;
         }
-        else if(this.customerAddress!='[A-Za-z0-9]+')
-        {
-              this.addressMissing=true;
-        }
+       
     }
     else {//when edit Mode is ON
+      this.editMode=true;
+      (<HTMLInputElement>document.getElementById('inputFieldEmail')).disabled=false;
       if(!(<HTMLInputElement>document.querySelector('input[name="status"]:checked')))
       {
         this.inputMissing=true;
@@ -91,7 +92,7 @@ export class CustomerFormComponent implements OnInit, OnChanges{
       else
       {
         this.inputMissing=false;
-        
+        this.emailExist=false;
         this.editedObject= { id:(this.customerList.length-1), name:this.customerName, email:this.customerEmail, address:this.customerAddress, status:(<HTMLInputElement>document.querySelector('input[name="status"]:checked')).value };
         this.customerList[this.objIndex]=this.editedObject;
 
@@ -100,7 +101,7 @@ export class CustomerFormComponent implements OnInit, OnChanges{
         this.customerName='';
         this.customerAddress='';
         this.customerEmail='';
-         
+        this.editMode=false;
           (<HTMLInputElement>document.querySelector('input[type=radio][name=status]:checked')).checked = false;
           (<HTMLInputElement>document.getElementById('submitBtn')).innerHTML="Submit";
 
