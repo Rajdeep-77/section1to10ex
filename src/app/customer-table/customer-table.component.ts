@@ -1,4 +1,5 @@
 import { Component,  EventEmitter,  Injectable, Input, OnInit, Output } from '@angular/core';
+import { CustomerCentralServService } from '../customer-central-serv.service';
 import { CustomerFormComponent } from '../customer-form/customer-form.component';
 
 @Component({
@@ -11,27 +12,24 @@ import { CustomerFormComponent } from '../customer-form/customer-form.component'
 @Injectable()
 export class CustomerTableComponent implements OnInit {
 
-  constructor( ){ }
+  constructor(private customerCentral:CustomerCentralServService ){ }
 
   ngOnInit() {
     this.customerDetailArray=this.customerListChild ;
   }
 
-  @Input() isSubmittedChild:boolean;
+  
+  // customerListChild:Array<any> =this.customerCentral.getDisplayArray();
   @Input() customerListChild:Array<any> ;
-  customerDetailArray:Array<any>;
   @Output() nameOfObjectToBeEdit =  new EventEmitter<object>();
-  // setObject
-  //This function returns an object to edit
-  // getObjToEdit(){
-  //   return this.nameOfObjectToBeEdit;
-  // }
+
+  // isSubmittedChild:boolean=true;
+  // @Input() isSubmittedChild:boolean;
+  customerDetailArray:Array<any>;
   tempVarDir:string;
-  // ObjToBeEdit;
 
   arrayOfSym:Array<boolean>=[true,false,true,false,true,false,true,false];
- 
-  
+
    // this function sorts the table rows based on ascending order of name column
     sortTable(n) {
       if(n==0){

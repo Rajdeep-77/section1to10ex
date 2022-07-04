@@ -3,6 +3,6 @@
         pattern="^[^-\s][a-zA-Z0-9_\s-]+$"
         
         maxlength="100" name="third" placeholder="customer address here" [(ngModel)]="customerAddressChild" 
-        (keyup)="sendAddress()" (keydown)="checkAddress()" required></textarea><br><br>
+        (keyup)="sendAddress()" required></textarea><br><br>
 <!-- <p *ngIf="addressMissing" class="allInputReq">Please enter address !</p> -->
 <ng-content></ng-content>

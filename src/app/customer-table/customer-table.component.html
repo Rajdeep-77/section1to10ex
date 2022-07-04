@@ -53,7 +53,7 @@
             </thead>
             
             <tbody>
-                <h4 *ngIf="isSubmittedChild" class="emptyTableLine">No customers found</h4>
+                <h4 *ngIf="(customerListChild.length==0)" class="emptyTableLine">No customers found</h4>
                 <tr *ngFor="let el of customerListChild">
                     
                     <td>{{ el.name }}</td>

@@ -43,8 +43,8 @@
 <div class="col-md-8">
         
         <app-customer-table *ngIf="showTable" 
-        [isSubmittedChild]="isSubmitted" [customerListChild]="customerList" 
-        [customerDetailArray]="customerList" [customerNameChild]="customerName" 
+         [customerListChild]="customerList" 
+        [customerNameChild]="customerName" 
         (nameOfObjectToBeEdit)="getEditobj($event)">
         <h2>Customer List</h2>
         </app-customer-table>

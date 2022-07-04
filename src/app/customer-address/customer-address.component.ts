@@ -12,9 +12,10 @@ export class CustomerAddressComponent implements OnInit {
     this.sendAddress();
   }
 
-  @Input() isSubmittedInaddress:boolean;
-  @Output() customerAddress = new EventEmitter<string>();
   @Input() customerAddressChild:string;
+  @Output() customerAddress = new EventEmitter<string>();
+  // @Output() customerAddress = new EventEmitter<string>();
+  
   addressMissing:boolean=false;
   
   //this function sends address to parent component

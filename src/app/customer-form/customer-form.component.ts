@@ -1,4 +1,5 @@
 import { Component, OnChanges, OnInit } from '@angular/core';
+import { CustomerCentralServService } from '../customer-central-serv.service';
 
 @Component({
   selector: 'app-customer-form',
@@ -8,8 +9,9 @@ import { Component, OnChanges, OnInit } from '@angular/core';
 })
 export class CustomerFormComponent implements OnInit, OnChanges{
 
-  constructor() { }
+  constructor(private customerCentral:CustomerCentralServService) { }
   ngOnChanges() {
+    
   }
   ngOnInit() {
     
@@ -17,9 +19,9 @@ export class CustomerFormComponent implements OnInit, OnChanges{
 
   // exercise-1 variables___________________________________________
 
-  customerName:string;
+  customerName:string='';
   customerEmail:string;
-  customerAddress:string='';
+  customerAddress:string=this.customerCentral.getAddressData() || '';
   customerList:Array<any>=[];
 
   emailArray=[];
@@ -45,11 +47,11 @@ export class CustomerFormComponent implements OnInit, OnChanges{
   getAddress(event: string)
   {  
     this.customerAddress = event; 
+    // this.customerCentral.getAddressData();
   }
 
   //this function gets the object to be edited
   getEditobj(eventObj){
-  
     this.objIndex=this.customerList.findIndex(ob => ob.email == eventObj.email);
    this.customerName=eventObj.name;
    this.customerEmail=eventObj.email;
@@ -70,17 +72,18 @@ export class CustomerFormComponent implements OnInit, OnChanges{
           this.addressMissing=false;
           this.emailArray.push(this.customerEmail);
           this.customerList.push({id:(this.customerList.length+1), name:this.customerName, email:this.customerEmail, address:this.customerAddress, status:(<HTMLInputElement>document.querySelector('input[name="status"]:checked')).value});
+          this.customerCentral.setDisplayArray(this.customerList);
           this.customerList.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0));
           this.customerName='';
           this.customerEmail='';
+          // (<HTMLInputElement>document.getElementById('inputFieldAddress')).value='';
           this.customerAddress='';
               (<HTMLInputElement>document.querySelector('input[type=radio][name=status]:checked')).checked = false;
         }
         else if( !(<HTMLInputElement>document.querySelector('input[name="status"]:checked')))
         {
               this.inputMissing=true;
-        }
-       
+        } 
     }
     else {//when edit Mode is ON
       this.editMode=true;
@@ -121,7 +124,7 @@ export class CustomerFormComponent implements OnInit, OnChanges{
     {
       this.addressMissing=false;
     }
-    }
+  }
   
 }
 

@@ -7,14 +7,33 @@ export class CustomerCentralServService {
 
   constructor() { }
 
-  editableObj;
+  serviceAddress:string;
+  detailArray:Array<any>;
+  // setObjToBeEdited(obj){
+  //   this.editableObj=obj;
+  // }
 
-  setObjToBeEdited(obj){
-    this.editableObj=obj;
+  // getObjToBeEdited(){
+  //   return this.editableObj;
+  // }
+
+  setDisplayArray(arr){
+    this.serviceAddress=arr;
   }
 
-  getObjToBeEdited(){
-    return this.editableObj;
+  getDisplayArray(){
+    return this.detailArray;
   }
+
+
+  setAddressData(add){
+    this.serviceAddress=add;
+  }
+
+  getAddressData(){
+    return this.serviceAddress;
+  }
+
+
 }
 
