@@ -24,15 +24,15 @@ export class CustomerAddressComponent implements OnInit {
   }
 
   //this function checks the address validity
- checkAddress(){
-  if(this.customerAddressChild!='[A-Za-z0-9]+'){
-    this.addressMissing=true;
-  }
-  else
-  {
-    this.addressMissing=false;
-  }
-}
+//  checkAddress(){
+//   if(this.customerAddressChild!='[A-Za-z0-9]+'){
+//     this.addressMissing=true;
+//   }
+//   else
+//   {
+//     this.addressMissing=false;
+//   }
+//   }
 
 
 }

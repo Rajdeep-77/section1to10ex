@@ -1,5 +1,7 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, OnChanges, OnInit, ViewChild } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { CustomerCentralServService } from '../customer-central-serv.service';
+import { CustomerTableComponent } from '../customer-table/customer-table.component';
 
 @Component({
   selector: 'app-customer-form',
@@ -7,14 +9,26 @@ import { CustomerCentralServService } from '../customer-central-serv.service';
   styleUrls: ['./customer-form.component.css']
 
 })
-export class CustomerFormComponent implements OnInit, OnChanges{
+export class CustomerFormComponent implements OnInit, OnChanges, AfterViewChecked{
 
   constructor(private customerCentral:CustomerCentralServService) { }
+  
+  // @ViewChild(CustomerTableComponent) cusTab;
+
   ngOnChanges() {
     
   }
   ngOnInit() {
     
+  }
+  ngAfterViewChecked(){
+  //   this.subscription = this.customerCentral.editableObj.subscribe( obj => { this.editedObject=obj; } );
+  //   console.log("..--..--"+ JSON.stringify(this.editedObject));
+  //   this.objIndex=this.customerList.findIndex(ob => ob.email == this.editedObject.email);
+  //  this.customerName=this.editedObject.name;
+  //  this.customerEmail=this.editedObject.email;
+  //  this.customerAddress=this.editedObject.address;
+  //   (<HTMLInputElement>document.getElementById(this.editedObject.status)).checked=true;
   }
 
   // exercise-1 variables___________________________________________
@@ -31,9 +45,9 @@ export class CustomerFormComponent implements OnInit, OnChanges{
   addressMissing:boolean=false;
   showTable:boolean=false;
   editMode:boolean=false;
-  editedObject:object;
+  editedObject;
   objIndex:number;
-
+  private subscription:Subscription;
 
   // exercise-1 functions___________________________________________
 
@@ -57,9 +71,8 @@ export class CustomerFormComponent implements OnInit, OnChanges{
    this.customerEmail=eventObj.email;
    this.customerAddress=eventObj.address;
     (<HTMLInputElement>document.getElementById(eventObj.status)).checked=true;
-
-  }
-
+  } 
+  
   //this function submits/edits the details filled inside customer form
   onSubmit(){
     (<HTMLInputElement>document.getElementById('inputFieldEmail')).disabled=false;
@@ -116,15 +129,15 @@ export class CustomerFormComponent implements OnInit, OnChanges{
   }
 
   //this function checks the address validity
-  checkAddress(){
-    if(this.customerAddress!='[A-Za-z0-9]+'){
-      this.addressMissing=true;
-    }
-    else
-    {
-      this.addressMissing=false;
-    }
-  }
+  // checkAddress(){
+  //   if(this.customerAddress!='[A-Za-z0-9]+'){
+  //     this.addressMissing=true;
+  //   }
+  //   else
+  //   {
+  //     this.addressMissing=false;
+  //   }
+  // }
   
 }
 
