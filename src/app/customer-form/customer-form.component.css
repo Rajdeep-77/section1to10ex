@@ -14,6 +14,6 @@
     margin-left: 25px;
     display: none;
 }
-/* .tableDataColumn{
-    margin-left: 2%;
-} */
+.hideTable{
+   visibility: hidden !important;
+}

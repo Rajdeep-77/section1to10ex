@@ -1,4 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { CustomerCentralServService } from '../customer-central-serv.service';
 
 @Component({
   selector: 'app-customer-address',
@@ -7,32 +9,23 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class CustomerAddressComponent implements OnInit {
 
-  constructor() { }
+  constructor(private customerCentral:CustomerCentralServService) { }
   ngOnInit(){
-    this.sendAddress();
+    // this.sendAddress();
   }
 
-  @Input() customerAddressChild:string;
-  @Output() customerAddress = new EventEmitter<string>();
+  customerAddressChild:string;
+  subsc:Subscription= this.customerCentral.formAddress.subscribe(add => { this.customerAddressChild=add; });
+  subsc2:Subscription= this.customerCentral.emptyAddress.subscribe(add => { this.customerAddressChild=add; });
+  // customerAddressChild:string=this.customerCentral.getAddressData();
+  // @Input() customerAddressChild:string;
   // @Output() customerAddress = new EventEmitter<string>();
   
   addressMissing:boolean=false;
   
   //this function sends address to parent component
  sendAddress(){ 
-  this.customerAddress.emit(this.customerAddressChild);
+  this.customerCentral.formAddress.emit(this.customerAddressChild);
   }
-
-  //this function checks the address validity
-//  checkAddress(){
-//   if(this.customerAddressChild!='[A-Za-z0-9]+'){
-//     this.addressMissing=true;
-//   }
-//   else
-//   {
-//     this.addressMissing=false;
-//   }
-//   }
-
 
 }

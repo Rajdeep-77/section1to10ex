@@ -1,4 +1,5 @@
 import { Component,  EventEmitter,  Injectable, Input, OnInit, Output } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { CustomerCentralServService } from '../customer-central-serv.service';
 import { CustomerFormComponent } from '../customer-form/customer-form.component';
 
@@ -15,50 +16,23 @@ export class CustomerTableComponent implements OnInit {
   constructor(private customerCentral:CustomerCentralServService ){ }
 
   ngOnInit() {
-    this.customerDetailArray=this.customerListChild ;
+    // this.customerDetailArray=this.customerListChild ;
   }
 
+  customerListChild:Array<any>=[] ;
+  subscrip:Subscription= this.customerCentral.formDataArray.subscribe( arr => { this.customerListChild=arr; this.customerDetailArray=arr});
   
-  // customerListChild:Array<any> =this.customerCentral.getDisplayArray();
-  @Input() customerListChild:Array<any> ;
-  // nameOfObjectToBeEdit;
-  // nameOfObjectToBeEdit =  new EventEmitter<object>();
-  @Output() nameOfObjectToBeEdit =  new EventEmitter<object>();
+  // @Input() customerListChild:Array<any> =[];
+  // @Output() nameOfObjectToBeEdit =  new EventEmitter<object>();
 
-  // isSubmittedChild:boolean=true;
-  // @Input() isSubmittedChild:boolean;
   customerDetailArray:Array<any>;
   tempVarDir:string;
-
-  // arrayOfSym:Array<boolean>=[true,false,true,false,true,false,true,false];
-  showUp1=true;
-  showUp2=true;
-  showUp3=true;
-  showUp4=true;
+  arrayOfNum=[true,true,true,true];
 
    // this function sorts the table rows based on ascending order of name column
     sortTable(n) {
-      if(n==0){
-        this.showUp1=!this.showUp1
-        // this.arrayOfSym[0]=!this.arrayOfSym[0];
-        // this.arrayOfSym[1]=!this.arrayOfSym[1];
-      }
-      else  if(n==1){
-        this.showUp2=!this.showUp2
-        // this.arrayOfSym[2]=!this.arrayOfSym[2];
-        // this.arrayOfSym[3]=!this.arrayOfSym[3];
-      }
-      else  if(n==2){
-        this.showUp3=!this.showUp3
-        // this.arrayOfSym[4]=!this.arrayOfSym[4];
-        // this.arrayOfSym[5]=!this.arrayOfSym[5];
-      }
-      else  if(n==3){
-        this.showUp4=!this.showUp4
-        // this.arrayOfSym[6]=!this.arrayOfSym[6];
-        // this.arrayOfSym[7]=!this.arrayOfSym[7];
-      }
-
+      this.arrayOfNum[n]=!this.arrayOfNum[n];
+      
     var  rows, switching, tempVarX, tempVarY, shouldSwitch:boolean, switchcount:number = 0;
     switching = true;
     //Set the sorting direction to ascending:
@@ -117,26 +91,13 @@ export class CustomerTableComponent implements OnInit {
   // this function shows all rows with status= Active and/or status= Inactive
   showJust(val: string){
     val === 'all' ? this.customerListChild=this.customerDetailArray : ( val=='active' ? this.customerListChild=this.customerDetailArray.filter( obj => { return obj.status == 'Active'; } ) : this.customerListChild=this.customerDetailArray.filter( obj => { return obj.status == 'Inactive'; } ) );
-    // if(val=='all'){
-    //   this.customerListChild=this.customerDetailArray ;
-    // }
-    // else if(val=='active'){
-    //   this.customerListChild=this.customerDetailArray.filter( obj => { return obj.status == 'Active'; } ) ;
-    // }else if(val=='inactive'){
-    //   this.customerListChild=this.customerDetailArray.filter( obj => { return obj.status == 'Inactive'; } );
-    // }else{
-    //   this.customerListChild =this.customerDetailArray;
-    // }
   }
 
-  
-  
   // This function sends the edited name to form component
   onEdit(elem){
-    // this.customerCentral.editableObj.emit(elem);
-    // console.log("on edit "+elem);
-    // this.customerCentral.setEditObj(elem);
-    this.nameOfObjectToBeEdit.emit(elem);
+    // this.nameOfObjectToBeEdit.emit(elem);
+    this.customerCentral.editableObj.emit(elem);
+    this.customerCentral.formAddress.emit(elem.address);
     (<HTMLInputElement>document.getElementById('submitBtn')).innerHTML="Edit";
     (<HTMLInputElement>document.getElementById('inputFieldEmail')).disabled=true;
   }

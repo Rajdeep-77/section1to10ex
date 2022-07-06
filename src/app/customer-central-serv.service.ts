@@ -10,17 +10,13 @@ export class CustomerCentralServService {
   serviceAddress:string;
   detailArray;
   editableObj = new EventEmitter<any>();
-  // setObjToBeEdited(obj){
-  //   this.editableObj=obj;
-  // }
-
-  // getObjToBeEdited(){
-  //   return this.editableObj;
-  // }
+  formDataArray = new EventEmitter<any>();
+  formAddress = new EventEmitter<any>();
+  emptyAddress = new EventEmitter<any>();
 
   //This function sets the array to display
   setDisplayArray(arr){
-    this.serviceAddress=arr;
+    this.detailArray=arr;
   }
 
   //This function returns the array to display
@@ -28,22 +24,15 @@ export class CustomerCentralServService {
     return this.detailArray;
   }
 
-  //This function sets the address
-  setAddressData(add){
-    this.serviceAddress=add;
-  }
+  // //This function sets the address
+  // setAddressData(add){
+  //   this.serviceAddress=add;
+  // }
 
-  //This function returns the address
-  getAddressData(){
-    return this.serviceAddress;
-  }
-
-  // This function sets the object to be edited
-  setEditObj(obj){
-    this.editableObj=obj;
-  }
-  //This function returns the object to be edited
-  getEditObj(){ return this.editableObj;}
+  //  //This function returns the address
+  //  getAddressData(){
+  //   return this.serviceAddress;
+  // }
 
 }
 

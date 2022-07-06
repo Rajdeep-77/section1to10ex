@@ -1,6 +1,6 @@
 <div class="container row">
     <div class="col-md-4">
-        <form #myForm="ngForm" onsubmit="event.preventDefault();">
+        <form  onsubmit="event.preventDefault();" #myForm="ngForm">
 
             <h4>Exercise-1</h4>
             <h2>Customer form</h2>
@@ -14,7 +14,8 @@
             <!-- <div *ngIf="(<HTMLInputElement>document.getElementById('submitBtn')).innerHTML!=='Edit'"></div> -->
             <p *ngIf="(emailExist && !editMode)" class="allInputReq ">Email already exist, Please try new one !</p>
 
-            <app-customer-address (customerAddress)="getAddress($event)" [customerAddressChild]="customerAddress" > </app-customer-address>
+            <app-customer-address> </app-customer-address>
+            <!-- <app-customer-address (customerAddress)="getAddress($event)" [customerAddressChild]="customerAddress" > </app-customer-address> -->
             <p *ngIf="addressMissing" class="allInputReq">Please enter address !</p>
             
             <div class="input-group mb-3">
@@ -36,23 +37,25 @@
             <!-- Extra -->
         </form><br><br>
 
-        <button class="btn btn-info" (click)="showTable=!showTable">Show table</button>
+        <!-- <button class="btn btn-info" (click)="showTable=!showTable">Show table</button> -->
         <hr>
 
     </div>
 <div class="col-md-8">
         
-        <!-- <app-customer-table *ngIf="showTable" 
-        [customerListChild]="customerList" 
-        >
+    <app-customer-table>
+        <h2>Customer List</h2>
+        </app-customer-table>
+
+        <!-- <app-customer-table *ngClass="{hideTable:!showTable}">
         <h2>Customer List</h2>
         </app-customer-table> -->
 
-        <app-customer-table *ngIf="showTable" 
+        <!-- <app-customer-table *ngIf="showTable" 
         [customerListChild]="customerList" 
-        (nameOfObjectToBeEdit)="getEditobj($event)">
+        (nameOfObjectToBeEdit)="getEditObj($event)">
         <h2>Customer List</h2>
-        </app-customer-table>
+        </app-customer-table> -->
     </div>
 </div><br>
 
